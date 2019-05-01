@@ -8,7 +8,7 @@ import main.utils.SingletonFactory;
 public class App {
 
    public static void main(String[] args) {
-      UserController controller = SingletonFactory.getInstance(UserController.class);
+      UserController controller = SingletonFactory.getInstance(UserController.class, "3");
       controller.doSomething();
       UserService service = SingletonFactory.getInstance(UserService.class);
       service.dance();

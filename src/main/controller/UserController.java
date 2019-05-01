@@ -1,12 +1,13 @@
 package main.controller;
 
 public class UserController {
+   private String extra;
 
-   protected UserController() {
-
-   }
+   public UserController(int a, int b, String c, boolean d) { extra = "FOUR ARGS"; }
+   protected UserController() { extra = "NON ARGS"; }
+   private UserController(String name, int age) { extra = "TWO ARGS"; }
 
    public void doSomething() {
-      System.out.println("YEY I am into UserController#doSomething()");
+      System.out.println("YEY I am into UserController#doSomething() - ".concat(extra));
    }
 }

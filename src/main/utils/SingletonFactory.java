@@ -1,6 +1,10 @@
 package main.utils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SingletonFactory {
@@ -12,13 +16,18 @@ public class SingletonFactory {
     * finally returns the new/old instance.
     *
     * @param clazz Class to instantiate if this class isn't in items map
+    * @param args All args of the constructor
     * @return <b>clazz instance</b>; <b>null</b> if the class only have args constructors
     */
-   public static <T> T getInstance(Class<T> clazz) {
+   public static <T> T getInstance(Class<T> clazz, Object... args) {
       T value;
       String key = clazz.getName();
       if (items.get(key) == null) {
-         value = createInstance(clazz);
+         try{
+            value = createInstance(clazz, args);
+         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            value = null;
+         }
          putItem(key, value);
       } else {
          value = (T) getItem(key);
@@ -28,20 +37,37 @@ public class SingletonFactory {
 
    /**
     * Creates a new instance of the class by reflection. <br>
-    * No matter the access if it is public, protected or private;
-    * but only can instantiate classes with non args constructor.
+    * No matter the access if it is public, protected or private. <br>
+    *  First checks if the class contains at least one constructor,
+    * if it is true check for each constructor if the amount of parameters that
+    * it needs is equals to length of args param, if it is true creates the new instance
+    * and ends the for loop.
     *
     * @param clazz Class to instantiate
-    * @return <b>class instance</b>; <b>null</b> if the class only have args constructors
+    * @param args All args of the constructor
+    * @return <b>class instance</b>; <b>null</b> if the class does not have constructors or if
+    *    does not exists a constructor with the same amount of parameters
+    *
+    * @throws InstantiationException if the class that declares the underlying constructor
+    *    represents an abstract class.
+    * @throws IllegalAccessException if this Constructor object is enforcing Java language
+    *    access control and the underlying constructor is inaccessible.
+    * @throws InvocationTargetException if the number of actual and formal parameters differ;
+    *    if an unwrapping conversion for primitive arguments fails; or if, after possible unwrapping,
+    *    a parameter value cannot be converted to the corresponding formal parameter type by
+    *    a method invocation conversion; if this constructor pertains to an enum type.
     */
-   private static <T> T createInstance(Class<T> clazz) {
-      T value;
-      try {
-         Constructor<T> constructorClazz = clazz.getDeclaredConstructor();
-         constructorClazz.setAccessible(true);
-         value = constructorClazz.newInstance();
-      } catch (Exception e) {
-         value = null;
+   @SuppressWarnings("unchecked")
+   private static <T> T createInstance(Class<T> clazz, Object... args)
+         throws InstantiationException, IllegalAccessException, InvocationTargetException {
+      T value = null;
+      List<Constructor> constructors = new ArrayList<>(Arrays.asList(clazz.getDeclaredConstructors()));
+      for (Constructor<T> constructor : constructors) {
+         constructor.setAccessible(true);
+         if (constructor.getParameterCount() == args.length) {
+            value = constructor.newInstance(args);
+            break;
+         }
       }
       return value;
    }
@@ -51,18 +77,19 @@ public class SingletonFactory {
     *
     * @param key
     * @param value
-    *
     * @see ConcurrentHashMap#put(Object, Object)
     */
    private static void putItem(String key, Object value) {
-      items.put(key, value);
+      if (key != null && value != null) {
+         items.put(key, value);
+      }
    }
 
    /**
     * Returns the associated value with the key
+    *
     * @param key key value associated with a value
     * @return <b>associated value</b> if it exists; <b>null</b> otherwise
-    *
     * @see ConcurrentHashMap#get(Object)
     */
    private static Object getItem(String key) {
