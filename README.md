@@ -1,8 +1,8 @@
-POC-SingletonFactory
+# POC-SingletonFactory
 
 This project is a POC for a Singleton Factory.
 
-NOTE:<br>
+**NOTE:**<br>
 Use the SingletonFactory's class if you want. OPEN SOURCE :) <br>
 In this first commit only works with classes with a non args contructor. <br>
 
