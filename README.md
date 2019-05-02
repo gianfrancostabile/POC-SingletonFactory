@@ -18,7 +18,8 @@ The SingletonFactory is a class that only has a unique public static method (**g
 **3.** Clone this project: <br>
 &nbsp;&nbsp;**3.1.** Open a new terminal <br>
 &nbsp;&nbsp;**3.2.** Move an empty folder from your PC. Example: (If you are using Windows) **cd C:\folder\another\end** <br>
-&nbsp;&nbsp;**3.3.** Use the next command: **git clone https://github.com/gianfrancostabile/POC-SingletonFactory.git** this command will &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy all folders and file that have this project to your empty folder <br>
+&nbsp;&nbsp;**3.3.** Use the next command: **git clone https://github.com/gianfrancostabile/POC-SingletonFactory.git** this command 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will copy all folders and file that have this project to your empty folder <br>
 &nbsp;&nbsp;**3.4.** You have this project cloned <br>
 &nbsp;&nbsp;**3.5.** The last step type: **cd POC-SingletonFactory** <br>
 **4.** Open a console, if you already open it in the last step it is not necessary. And type: **mvn clean install** <br>
