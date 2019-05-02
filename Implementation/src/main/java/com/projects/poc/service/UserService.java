@@ -1,4 +1,4 @@
-package main.service;
+package com.projects.poc.service;
 
 public class UserService {
 

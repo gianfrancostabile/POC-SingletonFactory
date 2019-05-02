@@ -1,4 +1,4 @@
-package main.utils;
+package com.projects.poc;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SingletonFactory {
-   private final static ConcurrentHashMap<String, Object> items = new ConcurrentHashMap<>();
+   private static ConcurrentHashMap<String, Object> items = new ConcurrentHashMap<>();
 
    /**
     * Gets a Class instance, after that check if this class is into the item's ConcurrentHashMap,
@@ -17,7 +17,9 @@ public class SingletonFactory {
     *
     * @param clazz Class to instantiate if this class isn't in items map
     * @param args All args of the constructor
-    * @return <b>clazz instance</b>; <b>null</b> if the class only have args constructors
+    * @return <b>clazz instance</b>; <b>null</b> if the class does not have constructors or if
+    *    does not exists a constructor with the same amount of parameters or an error happens on
+    *    instantiate the object
     */
    public static <T> T getInstance(Class<T> clazz, Object... args) {
       T value;
@@ -46,7 +48,8 @@ public class SingletonFactory {
     * @param clazz Class to instantiate
     * @param args All args of the constructor
     * @return <b>class instance</b>; <b>null</b> if the class does not have constructors or if
-    *    does not exists a constructor with the same amount of parameters
+    *    does not exists a constructor with the same amount of parameters or an error happens on
+    *    instantiate the object
     *
     * @throws InstantiationException if the class that declares the underlying constructor
     *    represents an abstract class.
@@ -61,12 +64,15 @@ public class SingletonFactory {
    private static <T> T createInstance(Class<T> clazz, Object... args)
          throws InstantiationException, IllegalAccessException, InvocationTargetException {
       T value = null;
-      List<Constructor> constructors = new ArrayList<>(Arrays.asList(clazz.getDeclaredConstructors()));
-      for (Constructor<T> constructor : constructors) {
-         constructor.setAccessible(true);
-         if (constructor.getParameterCount() == args.length) {
-            value = constructor.newInstance(args);
-            break;
+      if (clazz != null) {
+         args = (args == null) ? new Object[]{} : args;
+         List<Constructor> constructors = new ArrayList<>(Arrays.asList(clazz.getDeclaredConstructors()));
+         for (Constructor<T> constructor : constructors) {
+            constructor.setAccessible(true);
+            if (constructor.getParameterCount() == args.length) {
+               value = constructor.newInstance(args);
+               break;
+            }
          }
       }
       return value;
@@ -75,8 +81,8 @@ public class SingletonFactory {
    /**
     * Puts a new item into ITEMS map
     *
-    * @param key
-    * @param value
+    * @param key unique value associated with a value
+    * @param value an object that will be associated with a key
     * @see ConcurrentHashMap#put(Object, Object)
     */
    private static void putItem(String key, Object value) {
@@ -88,11 +94,15 @@ public class SingletonFactory {
    /**
     * Returns the associated value with the key
     *
-    * @param key key value associated with a value
-    * @return <b>associated value</b> if it exists; <b>null</b> otherwise
+    * @param key unique value associated with a value
+    * @return <b>associated value</b> if it exists; <b>null</b> otherwise or key is null
     * @see ConcurrentHashMap#get(Object)
     */
    private static Object getItem(String key) {
-      return items.get(key);
+      Object value = null;
+      if (key != null) {
+         value = items.get(key);
+      }
+      return value;
    }
 }

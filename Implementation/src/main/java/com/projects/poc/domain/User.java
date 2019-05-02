@@ -1,4 +1,4 @@
-package main.domain;
+package com.projects.poc.domain;
 
 public class User {
    public User() {

@@ -1,4 +1,4 @@
-package main.controller;
+package com.projects.poc.controller;
 
 public class UserController {
    private String extra;
