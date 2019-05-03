@@ -21,13 +21,14 @@ public class SingletonFactory {
     *    does not exists a constructor with the same amount of parameters or an error happens on
     *    instantiate the object
     */
+   @SuppressWarnings("unchecked")
    public static <T> T getInstance(Class<T> clazz, Object... args) {
       T value;
       String key = clazz.getName();
       if (items.get(key) == null) {
          try{
             value = createInstance(clazz, args);
-         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+         } catch (Exception e) {
             value = null;
          }
          putItem(key, value);
@@ -55,14 +56,15 @@ public class SingletonFactory {
     *    represents an abstract class.
     * @throws IllegalAccessException if this Constructor object is enforcing Java language
     *    access control and the underlying constructor is inaccessible.
-    * @throws InvocationTargetException if the number of actual and formal parameters differ;
+    * @throws InvocationTargetException if the underlying constructor throws an exception.
+    * @throws IllegalArgumentException if the number of actual and formal parameters differ;
     *    if an unwrapping conversion for primitive arguments fails; or if, after possible unwrapping,
     *    a parameter value cannot be converted to the corresponding formal parameter type by
     *    a method invocation conversion; if this constructor pertains to an enum type.
     */
    @SuppressWarnings("unchecked")
    private static <T> T createInstance(Class<T> clazz, Object... args)
-         throws InstantiationException, IllegalAccessException, InvocationTargetException {
+         throws InstantiationException, IllegalAccessException, InvocationTargetException, IllegalArgumentException {
       T value = null;
       if (clazz != null) {
          args = (args == null) ? new Object[]{} : args;

@@ -14,8 +14,14 @@ public class App {
       User user = SingletonFactory.getInstance(User.class);
       user.kill();
 
+      System.out.println("BEFORE GET SAMECONTROLLER: ".concat(controller.extra));
       UserController sameController = SingletonFactory.getInstance(UserController.class);
-      sameController.doSomething();
+      System.out.println("AFTER GET SAMECONTROLLER: ".concat(sameController.extra));
+      sameController.extra = "I DON'T NOW";
+      System.out.println("AFTER VALUE CHANGE: ".concat(sameController.extra));
+
+      UserController otherController = SingletonFactory.getInstance(UserController.class);
+      System.out.println("AFTER GET OTHERCONTROLLER ".concat(otherController.extra));
    }
 
 }

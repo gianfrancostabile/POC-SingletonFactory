@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -162,7 +163,7 @@ public class SingletonFactoryTest extends TestCase {
       assertNull(instance);
    }
 
-   @Test(expected = Exception.class)
+   @Test(expected = InvocationTargetException.class)
    public void createInstance_AbstractConstructor_ShouldThrowException() throws Exception {
       getMethod_createInstance().invoke(singletonClazz, AbstractConstructor.class, null);
    }
@@ -183,6 +184,21 @@ public class SingletonFactoryTest extends TestCase {
    public void createInstance_PrivateDoesNotExistsConstructorWithThatArgsAmount_ShouldReturnNull() throws Exception {
       Object instance = getMethod_createInstance().invoke(singletonClazz, PrivateConstructor.class, new Object[] {1, 2});
       assertNull(instance);
+   }
+
+   @Test(expected = InvocationTargetException.class)
+   public void createInstance_PublicErrorTypeArguments_ShouldThrowException() throws Exception {
+      getMethod_createInstance().invoke(singletonClazz, PublicConstructor.class, new Object[] {"error", "2", false});
+   }
+
+   @Test(expected = InvocationTargetException.class)
+   public void createInstance_ProtectedErrorTypeArguments_ShouldThrowException() throws Exception {
+      getMethod_createInstance().invoke(singletonClazz, ProtectedConstructor.class, new Object[] {"error", "2", false});
+   }
+
+   @Test(expected = InvocationTargetException.class)
+   public void createInstance_PrivateErrorTypeArguments_ShouldThrowException() throws Exception {
+      getMethod_createInstance().invoke(singletonClazz, PrivateConstructor.class, new Object[] {"error", "2", false});
    }
 
    @Ignore

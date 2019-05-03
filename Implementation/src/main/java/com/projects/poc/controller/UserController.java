@@ -1,7 +1,7 @@
 package com.projects.poc.controller;
 
 public class UserController {
-   private String extra;
+   public String extra;
 
    public UserController(int a, int b, String c, boolean d) { extra = "FOUR ARGS"; }
    protected UserController() { extra = "NON ARGS"; }
