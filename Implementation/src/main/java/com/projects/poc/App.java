@@ -22,6 +22,10 @@ public class App {
 
       UserController otherController = SingletonFactory.getInstance(UserController.class);
       System.out.println("AFTER GET OTHERCONTROLLER ".concat(otherController.extra));
+      otherController = null;
+
+      UserController anotherOneController = SingletonFactory.getInstance(UserController.class);
+      System.out.println("AFTER GET OTHERCONTROLLER ".concat(anotherOneController.extra));
    }
 
 }
