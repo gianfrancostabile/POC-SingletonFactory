@@ -11,6 +11,7 @@ import org.junit.runners.JUnit4;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RunWith(JUnit4.class)
@@ -233,326 +234,326 @@ public class SingletonFactoryTest extends TestCase {
 
    @Test
    public void getInstance_PublicNonArgs_ShouldReturnNewInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class);
-      assertEquals(value.message, "PublicConstructor - NON ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class);
+      assertEquals(value.get().message, "PublicConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_PublicOneArg_ShouldReturnNewInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1);
-      assertEquals(value.message, "PublicConstructor - ONE ARG");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1);
+      assertEquals(value.get().message, "PublicConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_PublicMoreArg_ShouldReturnNewInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PublicConstructor - MORE ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PublicConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_PublicOthersTypesArg_ShouldReturnNewInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", true, 4);
-      assertEquals(value.message, "PublicConstructor - OTHERS TYPES ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", true, 4);
+      assertEquals(value.get().message, "PublicConstructor - OTHERS TYPES ARGS");
    }
 
    @Test
    public void getInstance_ProtectedNonArgs_ShouldReturnNewInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class);
-      assertEquals(value.message, "ProtectedConstructor - NON ARGS");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class);
+      assertEquals(value.get().message, "ProtectedConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_ProtectedOneArg_ShouldReturnNewInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
-      assertEquals(value.message, "ProtectedConstructor - ONE ARG");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
+      assertEquals(value.get().message, "ProtectedConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_ProtectedMoreArg_ShouldReturnNewInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "ProtectedConstructor - MORE ARGS");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "ProtectedConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_PrivateNonArgs_ShouldReturnNewInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class);
-      assertEquals(value.message, "PrivateConstructor - NON ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class);
+      assertEquals(value.get().message, "PrivateConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_PrivateOneArg_ShouldReturnNewInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
-      assertEquals(value.message, "PrivateConstructor - ONE ARG");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
+      assertEquals(value.get().message, "PrivateConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_PrivateMoreArg_ShouldReturnNewInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PrivateConstructor - MORE ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PrivateConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_PrivateOthersTypesArg_ShouldReturnNewInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", true, 4);
-      assertEquals(value.message, "PrivateConstructor - OTHERS TYPES ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", true, 4);
+      assertEquals(value.get().message, "PrivateConstructor - OTHERS TYPES ARGS");
    }
 
    @Test
    public void getInstance_PublicNonArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class);
-      assertEquals(value.message, "PublicConstructor - NON ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class);
+      assertEquals(value.get().message, "PublicConstructor - NON ARGS");
       value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PublicConstructor - NON ARGS");
+      assertEquals(value.get().message, "PublicConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_PublicOneArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1);
-      assertEquals(value.message, "PublicConstructor - ONE ARG");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1);
+      assertEquals(value.get().message, "PublicConstructor - ONE ARG");
       value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PublicConstructor - ONE ARG");
+      assertEquals(value.get().message, "PublicConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_PublicMoreArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PublicConstructor - MORE ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PublicConstructor - MORE ARGS");
       value = SingletonFactory.getInstance(PublicConstructor.class, 1);
-      assertEquals(value.message, "PublicConstructor - MORE ARGS");
+      assertEquals(value.get().message, "PublicConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_PublicOthersTypesArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "PublicConstructor - OTHERS TYPES ARGS");
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "PublicConstructor - OTHERS TYPES ARGS");
       value = SingletonFactory.getInstance(PublicConstructor.class, 1);
-      assertEquals(value.message, "PublicConstructor - OTHERS TYPES ARGS");
+      assertEquals(value.get().message, "PublicConstructor - OTHERS TYPES ARGS");
    }
 
    @Test
    public void getInstance_ProtectedNonArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class);
-      assertEquals(value.message, "ProtectedConstructor - NON ARGS");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class);
+      assertEquals(value.get().message, "ProtectedConstructor - NON ARGS");
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "ProtectedConstructor - NON ARGS");
+      assertEquals(value.get().message, "ProtectedConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_ProtectedOneArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
-      assertEquals(value.message, "ProtectedConstructor - ONE ARG");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
+      assertEquals(value.get().message, "ProtectedConstructor - ONE ARG");
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "ProtectedConstructor - ONE ARG");
+      assertEquals(value.get().message, "ProtectedConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_ProtectedMoreArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "ProtectedConstructor - MORE ARGS");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "ProtectedConstructor - MORE ARGS");
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
-      assertEquals(value.message, "ProtectedConstructor - MORE ARGS");
+      assertEquals(value.get().message, "ProtectedConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_ProtectedOthersTypesArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "ProtectedConstructor - OTHERS TYPES ARGS");
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "ProtectedConstructor - OTHERS TYPES ARGS");
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
-      assertEquals(value.message, "ProtectedConstructor - OTHERS TYPES ARGS");
+      assertEquals(value.get().message, "ProtectedConstructor - OTHERS TYPES ARGS");
    }
 
    @Test
    public void getInstance_PrivateNonArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class);
-      assertEquals(value.message, "PrivateConstructor - NON ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class);
+      assertEquals(value.get().message, "PrivateConstructor - NON ARGS");
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PrivateConstructor - NON ARGS");
+      assertEquals(value.get().message, "PrivateConstructor - NON ARGS");
    }
 
    @Test
    public void getInstance_PrivateOneArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
-      assertEquals(value.message, "PrivateConstructor - ONE ARG");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
+      assertEquals(value.get().message, "PrivateConstructor - ONE ARG");
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PrivateConstructor - ONE ARG");
+      assertEquals(value.get().message, "PrivateConstructor - ONE ARG");
    }
 
    @Test
    public void getInstance_PrivateMoreArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PrivateConstructor - MORE ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PrivateConstructor - MORE ARGS");
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
-      assertEquals(value.message, "PrivateConstructor - MORE ARGS");
+      assertEquals(value.get().message, "PrivateConstructor - MORE ARGS");
    }
 
    @Test
    public void getInstance_PrivateOthersTypesArgs_WhenAnInstanceWasCreated_ShouldReturnOldInstance() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "PrivateConstructor - OTHERS TYPES ARGS");
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "PrivateConstructor - OTHERS TYPES ARGS");
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
-      assertEquals(value.message, "PrivateConstructor - OTHERS TYPES ARGS");
+      assertEquals(value.get().message, "PrivateConstructor - OTHERS TYPES ARGS");
    }
 
    @Test
    public void getInstance_PublicNonArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class);
-      assertEquals(value.message, "PublicConstructor - NON ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class);
+      assertEquals(value.get().message, "PublicConstructor - NON ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PublicOneArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1);
-      assertEquals(value.message, "PublicConstructor - ONE ARG");
-      value.message = "VALUE CHANGED";
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1);
+      assertEquals(value.get().message, "PublicConstructor - ONE ARG");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PublicMoreArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PublicConstructor - MORE ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PublicConstructor - MORE ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PublicConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PublicOthersTypesArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PublicConstructor value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "PublicConstructor - OTHERS TYPES ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PublicConstructor> value = SingletonFactory.getInstance(PublicConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "PublicConstructor - OTHERS TYPES ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PublicConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_ProtectedNonArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class);
-      assertEquals(value.message, "ProtectedConstructor - NON ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class);
+      assertEquals(value.get().message, "ProtectedConstructor - NON ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_ProtectedOneArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
-      assertEquals(value.message, "ProtectedConstructor - ONE ARG");
-      value.message = "VALUE CHANGED";
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1);
+      assertEquals(value.get().message, "ProtectedConstructor - ONE ARG");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_ProtectedMoreArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "ProtectedConstructor - MORE ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "ProtectedConstructor - MORE ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(ProtectedConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_ProtectedOthersTypesArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      ProtectedConstructor value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "ProtectedConstructor - OTHERS TYPES ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<ProtectedConstructor> value = SingletonFactory.getInstance(ProtectedConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "ProtectedConstructor - OTHERS TYPES ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(ProtectedConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PrivateNonArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class);
-      assertEquals(value.message, "PrivateConstructor - NON ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class);
+      assertEquals(value.get().message, "PrivateConstructor - NON ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PrivateOneArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
-      assertEquals(value.message, "PrivateConstructor - ONE ARG");
-      value.message = "VALUE CHANGED";
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1);
+      assertEquals(value.get().message, "PrivateConstructor - ONE ARG");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PrivateMoreArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
-      assertEquals(value.message, "PrivateConstructor - MORE ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2, 3);
+      assertEquals(value.get().message, "PrivateConstructor - MORE ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PrivateConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_PrivateOthersTypesArgs_WhenAnInstanceWasCreatedAndAValueChanges_ShouldReturnOldInstanceWithUpdatedValue() {
-      PrivateConstructor value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", false, 4);
-      assertEquals(value.message, "PrivateConstructor - OTHERS TYPES ARGS");
-      value.message = "VALUE CHANGED";
+      Optional<PrivateConstructor> value = SingletonFactory.getInstance(PrivateConstructor.class, 1, "2", false, 4);
+      assertEquals(value.get().message, "PrivateConstructor - OTHERS TYPES ARGS");
+      value.get().message = "VALUE CHANGED";
       value = SingletonFactory.getInstance(PrivateConstructor.class);
-      assertEquals(value.message, "VALUE CHANGED");
+      assertEquals(value.get().message, "VALUE CHANGED");
    }
 
    @Test
    public void getInstance_NonConstructor_ShouldReturnNewInstance() {
-      Object instance = SingletonFactory.getInstance(NonConstructors.class);
-      assertNotNull(instance);
+      Optional<NonConstructors> value = SingletonFactory.getInstance(NonConstructors.class);
+      assertEquals(value.get().message, "NON CONSTRUCTORS");
    }
 
    @Test
    public void getInstance_NullClassParameter_ShouldReturnNull() {
-      Object instance = SingletonFactory.getInstance(null);
-      assertNull(instance);
+      Optional<Object> instance = SingletonFactory.getInstance(null);
+      assertNull(instance.orElse(null));
    }
 
    @Test
    public void getInstance_AbstractConstructor_ShouldThrowException() {
-      AbstractConstructor instance = SingletonFactory.getInstance(AbstractConstructor.class);
-      assertNull(instance);
+      Optional<AbstractConstructor> instance = SingletonFactory.getInstance(AbstractConstructor.class);
+      assertNull(instance.orElse(null));
    }
 
    @Test
    public void getInstance_PublicDoesNotExistsConstructorWithThatArgsAmount_ShouldReturnNull() {
-      Object instance = SingletonFactory.getInstance(PublicConstructor.class, 1, 2);
-      assertNull(instance);
+      Optional<PublicConstructor> instance = SingletonFactory.getInstance(PublicConstructor.class, 1, 2);
+      assertNull(instance.orElse(null));
    }
 
    @Test
    public void getInstance_ProtectedDoesNotExistsConstructorWithThatArgsAmount_ShouldReturnNull() {
-      Object instance = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2);
-      assertNull(instance);
+      Optional<ProtectedConstructor> instance = SingletonFactory.getInstance(ProtectedConstructor.class, 1, 2);
+      assertNull(instance.orElse(null));
    }
 
    @Test
    public void getInstance_PrivateDoesNotExistsConstructorWithThatArgsAmount_ShouldReturnNull() {
-      Object instance = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2);
-      assertNull(instance);
+      Optional<PrivateConstructor> instance = SingletonFactory.getInstance(PrivateConstructor.class, 1, 2);
+      assertNull(instance.orElse(null));
    }
 
    @Test
-   public void getInstance_PublicErrorTypeArguments_ShouldThrowException() {
-      PublicConstructor instance = SingletonFactory.getInstance(PublicConstructor.class, "error", "2", false, 4);
-      assertNull(instance);
+   public void getInstance_PublicErrorTypeArguments_ShouldReturnNull() {
+      Optional<PublicConstructor> instance = SingletonFactory.getInstance(PublicConstructor.class, "error", "2", false, 4);
+      assertNull(instance.orElse(null));
    }
 
    @Test
-   public void getInstance_ProtectedErrorTypeArguments_ShouldThrowException() {
-      ProtectedConstructor instance = SingletonFactory.getInstance(ProtectedConstructor.class, "error", "2", false, 4);
-      assertNull(instance);
+   public void getInstance_ProtectedErrorTypeArguments_ShouldReturnNull() {
+      Optional<ProtectedConstructor> instance = SingletonFactory.getInstance(ProtectedConstructor.class, "error", "2", false, 4);
+      assertNull(instance.orElse(null));
    }
 
    @Test
-   public void getInstance_PrivateErrorTypeArguments_ShouldThrowException() {
-      PrivateConstructor instance = SingletonFactory.getInstance(PrivateConstructor.class, "error", "2", false, 4);
-      assertNull(instance);
+   public void getInstance_PrivateErrorTypeArguments_ShouldReturnNull() {
+      Optional<PrivateConstructor> instance = SingletonFactory.getInstance(PrivateConstructor.class, "error", "2", false, 4);
+      assertNull(instance.orElse(null));
    }
 
    @Ignore

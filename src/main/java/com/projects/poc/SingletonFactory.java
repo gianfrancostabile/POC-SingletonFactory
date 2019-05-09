@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SingletonFactory {
@@ -22,7 +23,7 @@ public class SingletonFactory {
     * instantiate the object
     */
    @SuppressWarnings("unchecked")
-   public static <T> T getInstance(Class<T> clazz, Object... args) {
+   public static <T> Optional<T> getInstance(Class<T> clazz, Object... args) {
       T value;
       String key = (clazz == null) ? null : clazz.getName();
       if (getItem(key) == null) {
@@ -35,7 +36,7 @@ public class SingletonFactory {
       } else {
          value = (T) getItem(key);
       }
-      return value;
+      return Optional.ofNullable(value);
    }
 
    /**
